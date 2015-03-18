@@ -1,3 +1,4 @@
 addresses.txt
 credentials.py
 *.pyc
+db.json
