@@ -25,7 +25,7 @@ def main():
     for story in db.all():
         message += u'{0} <a href="{1}">{2}</a> (<a href="https://news.ycombinator.com/item?id={3}">Comments</a>)<br>'.format(story['score'], story['url'], cgi.escape(story['title']), story['id'])
     result = send_simple_message(message)
-    #os.remove('db.json')
+    os.remove('db.json')
 
 
 if __name__ == "__main__":
