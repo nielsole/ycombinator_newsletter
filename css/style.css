@@ -75,3 +75,10 @@ input:focus {
   outline: 2px solid #E86C8D;
   box-shadow: 0 0 2px #E86C8D;
 }
+
+a {
+color:black;
+}
+
+a:visited{
+color:#222;}
