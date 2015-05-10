@@ -1,5 +1,5 @@
 addresses.txt
 credentials.py
 *.pyc
-db.json
 .idea
+*.db

@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
 import os
 import requests
 from tinydb import TinyDB
 import cgi
-from credentials import API_KEY, USER, HOST
+#from credentials import API_KEY, USER, HOST
+import database
+
 __author__ = 'flshrmb'
 
 
@@ -14,18 +17,23 @@ def send_simple_message(some_list):
     return requests.post(
         "https://api.mailgun.net/v3/" + HOST + "/messages",
         auth=("api", API_KEY),
-        data={"from": u"Hacker News - Täglicher Report <{0}@{1}>".format(USER, HOST),
+        data={"from": u"Hacker News - Daily Report <{0}@{1}>".format(USER, HOST),
               "to": addresses,
               "subject": "Hacker News Update",
               "html": u'<html>{0}<br>To be removed from this mailing list write an email with the subject \'unsubscribe\' to hackernewsletter-request@freelists.org</html>'.format(some_list)})
 
 def main():
-    db = TinyDB('db.json')
     message = "Top messages:<br>"
-    for story in db.all():
+    conn = database.get_con()
+    cur = conn.cursor()
+    top_ten = database.get_top_ten(cur)
+    for result in top_ten:
+        story = json.loads(result[2])
         message += u'{0} <a href="{1}">{2}</a> (<a href="https://news.ycombinator.com/item?id={3}">Comments</a>)<br>'.format(story['score'], story['url'], cgi.escape(story['title']), story['id'])
+    database.was_sent(cur, top_ten)
+    database.delete_unsent(cur)
     result = send_simple_message(message)
-    os.remove('db.json')
+    conn.close()
 
 
 if __name__ == "__main__":
