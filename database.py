@@ -4,21 +4,23 @@ __author__ = 'flshrmb'
 
 import sqlite3 as lite
 
-def is_in_db(number, con):
-    cur = con.cursor()
-    cur.execute("SELECT * FROM Stories WHERE Id = ?;", (str(number)))
+def is_in_db(number, cur):
+    cur.execute("SELECT * FROM Stories WHERE Id = ?;", (str(number),))
     rows = cur.fetchone()
     if rows is not None:
         return True
     return False
 
 def insert(number, json_data, cur):
-    cur.execute("""insert or replace into Stories (Id, Json, Score, Sent) values
-  (?, ?, ?,?);""", (number, json.dumps(json_data), json_data['score'], 0))
+    if is_in_db(number, cur):
+        cur.execute("UPDATE INTO Stories SET Score = ?;", json_data['score'])
+    else:
+        cur.execute("""insert into Stories (Id, Json, Score, Sent) values
+  (?, ?, ?,0 );""", (number, json.dumps(json_data), json_data['score']))
     pass
 
 def create_table(cur):
-    cur.execute("CREATE TABLE IF NOT EXISTS Stories(Id INTEGER PRIMARY KEY, Score INTEGER, Json BLOB, Sent INTEGER );")
+    cur.execute("CREATE TABLE IF NOT EXISTS Stories(Id INTEGER PRIMARY KEY, Score INTEGER, Json BLOB, Sent INTEGER DEFAULT 0);")
     return
 
 def get_top_ten(cur):

@@ -10,7 +10,10 @@ import unittest
 class MyTestCase(unittest.TestCase):
     conn = None
     def setUp(self):
-        os.remove('test.db')
+        try:
+            os.remove('test.db')
+        except OSError, e:
+            pass
         self.conn = database.get_con('test.db')
         database.create_table(self.conn.cursor())
 
@@ -24,9 +27,10 @@ class MyTestCase(unittest.TestCase):
         database.create_table(self.conn.cursor())
 
     def test_is_in_db(self):
-        database.insert(1,{'score': 30}, self.conn.cursor())
-        self.assertTrue(database.is_in_db(1, self.conn))
-        self.assertFalse(database.is_in_db(2, self.conn))
+        cursor = self.conn.cursor()
+        database.insert(1,{'score': 30}, cursor)
+        self.assertTrue(database.is_in_db(1, cursor))
+        self.assertFalse(database.is_in_db(2, cursor))
 
     def test_get_top_ten(self):
         database.insert(2,{'score': 30}, self.conn.cursor())
