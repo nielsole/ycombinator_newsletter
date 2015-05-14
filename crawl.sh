@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ~/ycombinator_collector
+cd ~/backup/nokadmin/ycombinator_collector
 ./crawl.py

@@ -13,7 +13,7 @@ def is_in_db(number, cur):
 
 def insert(number, json_data, cur):
     if is_in_db(number, cur):
-        cur.execute("UPDATE INTO Stories SET Score = ?;", json_data['score'])
+        cur.execute("UPDATE Stories SET Score = ? WHERE id = ?;", (json_data['score'], number))
     else:
         cur.execute("""insert into Stories (Id, Json, Score, Sent) values
   (?, ?, ?,0 );""", (number, json.dumps(json_data), json_data['score']))
@@ -24,12 +24,12 @@ def create_table(cur):
     return
 
 def get_top_ten(cur):
-    cur.execute("SELECT * FROM Stories WHERE SENT IS 0 ORDER BY SCORE DESC LIMIT 10;")
+    cur.execute("SELECT * FROM Stories WHERE sent = 0 ORDER BY SCORE DESC LIMIT 10;")
     return cur.fetchall()
 
 def was_sent(cur, stories):
     for story in stories:
-        cur.execute("UPDATE Stories SET SENT = 1 WHERE Id = {0}".format(story[0]))
+        cur.execute("UPDATE Stories SET SENT = 1 WHERE Id = ?", (story[0],))
 
 def delete_unsent(cur):
     cur.execute("DELETE FROM Stories WHERE SENT IS 0 ;")

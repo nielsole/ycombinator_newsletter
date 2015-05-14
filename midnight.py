@@ -5,7 +5,7 @@ import os
 import requests
 from tinydb import TinyDB
 import cgi
-#from credentials import API_KEY, USER, HOST
+from credentials import API_KEY, USER, HOST
 import database
 
 __author__ = 'flshrmb'
