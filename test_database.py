@@ -41,6 +41,12 @@ class MyTestCase(unittest.TestCase):
             json_data = json.loads(entry[2])
             self.assertEquals(json_data['score'], 30)
 
+    def test_was_sent(self):
+        database.insert(2,{'score': 30}, self.conn.cursor())
+        self.assertIs(len(self.conn.cursor().execute("SELECT * FROM Stories WHERE Sent = 1;").fetchall()), 0, "Unexpected sent message")
+        database.was_sent(self.conn.cursor(), ((2,),))
+        self.assertIs(len(self.conn.cursor().execute("SELECT * FROM Stories WHERE Sent = 1;").fetchall()), 1, "No sent message")
+
 
 
 

@@ -29,10 +29,11 @@ def main():
     top_ten = database.get_top_ten(cur)
     for result in top_ten:
         story = json.loads(result[2])
-        message += u'{0} <a href="{1}">{2}</a> (<a href="https://news.ycombinator.com/item?id={3}">Comments</a>)<br>'.format(story['score'], story['url'], cgi.escape(story['title']), story['id'])
+        message += u'{0} <a href="{1}">{2}</a> (<a href="https://news.ycombinator.com/item?id={3}">Comments</a>)<br>'.format(result[1], story['url'], cgi.escape(story['title']), story['id'])
     database.was_sent(cur, top_ten)
     database.delete_unsent(cur)
     result = send_simple_message(message)
+    conn.commit()
     conn.close()
 
 

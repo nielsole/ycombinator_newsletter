@@ -10,6 +10,7 @@ def handle(some_story, conn):
     cursor = conn.cursor()
     database.create_table(cursor)
     database.insert(some_story['id'], some_story, cursor)
+    conn.commit()
 
 
 def main():
