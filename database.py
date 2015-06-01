@@ -13,14 +13,22 @@ def is_in_db(number, cur):
 
 def insert(number, json_data, cur):
     if is_in_db(number, cur):
-        cur.execute("UPDATE Stories SET Score = ? WHERE id = ?;", (json_data['score'], number))
+        cur.execute("UPDATE Stories SET Score = ?, Url = ?, Title = ? WHERE id = ?;", (json_data['score'], json_data['url'], json_data['title'], number ))
     else:
-        cur.execute("""insert into Stories (Id, Json, Score, Sent) values
-  (?, ?, ?,0 );""", (number, json.dumps(json_data), json_data['score']))
+        try:
+            url = json_data['url']
+        except KeyError:
+            url = ''
+        try:
+            title = json_data['title']
+        except KeyError:
+            title = ''
+        cur.execute("""insert into Stories (Id, Score, Url, Title) values
+  (?, ?, ?,? );""", (number, json_data['score'], url, title))
     pass
 
 def create_table(cur):
-    cur.execute("CREATE TABLE IF NOT EXISTS Stories(Id INTEGER PRIMARY KEY, Score INTEGER, Json BLOB, Sent INTEGER DEFAULT 0);")
+    cur.execute("CREATE TABLE IF NOT EXISTS Stories(Id INTEGER PRIMARY KEY, Score INTEGER, Url VARCHAR, Title VARCHAR, Sent INTEGER DEFAULT 0);")
     return
 
 def get_top_ten(cur):

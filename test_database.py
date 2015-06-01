@@ -38,8 +38,7 @@ class MyTestCase(unittest.TestCase):
         top_ten = database.get_top_ten(self.conn.cursor())
         self.assertTrue(len(top_ten) == 2)
         for entry in top_ten:
-            json_data = json.loads(entry[2])
-            self.assertEquals(json_data['score'], 30)
+            self.assertEquals(entry[1], 30)
 
     def test_was_sent(self):
         database.insert(2,{'score': 30}, self.conn.cursor())

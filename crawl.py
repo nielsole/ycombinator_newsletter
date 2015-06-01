@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import requests
-from tinydb import TinyDB, where
 from database import is_in_db
 import database
 
@@ -27,7 +26,6 @@ def main():
         print('Number: {0}'.format(i))
         if i > 30:
             break
-    #pprint(TinyDB('db.json').all())
 
 
 if __name__ == "__main__":
