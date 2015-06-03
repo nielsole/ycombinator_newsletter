@@ -18,7 +18,7 @@ def send_simple_message(some_list):
         "https://api.mailgun.net/v3/" + HOST + "/messages",
         auth=("api", API_KEY),
         data={"from": u'"Hacker News - Daily Report "<{0}@{1}>'.format(USER, HOST),
-              "to": '<{0}@{1}>'.format(USER, HOST),
+              "to": u'<{0}@{1}>'.format(USER, HOST),
               "bcc": addresses,
               "subject": "Hacker News Update",
               "html": u'<html>{0}<br>To be removed from this mailing list write an email with the subject \'unsubscribe\' to hackernewsletter-request@freelists.org</html>'.format(some_list)})
@@ -37,7 +37,7 @@ def main():
         if url == '':
             link = title
         else:
-            link = '<a href="{0}">{1}</a>'.format(url, title)
+            link = u'<a href="{0}">{1}</a>'.format(url, title)
         message += u'{0} {1} (<a href="https://news.ycombinator.com/item?id={2}">Comments</a>)<br>'.format(score, link, number)
     result = send_simple_message(message)
     if result.status_code == 200:
