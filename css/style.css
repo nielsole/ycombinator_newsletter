@@ -1,6 +1,6 @@
 
 body {
-  background: #ff6600;
+  background: #DDFFDC;
   font-family: 'Lato', sans-serif;
   color: #000;
   text-align: center;
@@ -82,3 +82,13 @@ color:black;
 
 a:visited{
 color:#222;}
+
+.signup{
+    padding: 20pt;
+    background-color: #E8DB83;
+    border-radius: 5px;
+}
+
+table{
+    margin-bottom: 20pt;
+}
