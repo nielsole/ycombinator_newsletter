@@ -1,3 +1,4 @@
 #!/bin/bash
-cd ~/backup/nokadmin/ycombinator_collector
+#add path of current directory
+cd ~/ycombinator_newsletter
 ./crawl.py
