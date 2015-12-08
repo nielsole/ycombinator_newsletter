@@ -42,6 +42,8 @@ def main():
     if result.status_code == 200:
         database.was_sent(cur, top_ten)
         database.delete_unsent(cur)
+    else:
+        raise(Exception("Weird response")
     conn.commit()
     conn.close()
 
