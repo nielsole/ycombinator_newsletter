@@ -43,7 +43,7 @@ def main():
         database.was_sent(cur, top_ten)
         database.delete_unsent(cur)
     else:
-        raise(Exception("Weird response")
+        raise(Exception("Weird response"))
     conn.commit()
     conn.close()
 
