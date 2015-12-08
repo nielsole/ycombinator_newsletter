@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ~/backup/nokadmin/ycombinator_collector
+cd ~/ycombinator_newsletter
 ./midnight.py
