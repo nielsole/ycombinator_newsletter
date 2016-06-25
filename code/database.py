@@ -42,7 +42,7 @@ def was_sent(cur, stories):
 def delete_unsent(cur):
     cur.execute("DELETE FROM Stories WHERE SENT IS 0 ;")
 
-def get_con(dbname='prod.db'):
+def get_con(dbname='/data/prod.db'):
     return lite.connect(dbname)
 
     if con:
