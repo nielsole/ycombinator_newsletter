@@ -12,17 +12,17 @@ def is_in_db(number, cur):
     return False
 
 def insert(number, json_data, cur):
+    try:
+        url = json_data['url']
+    except KeyError:
+        url = "https://news.ycombinator.com/item?id={0}".format(json_data["id"])
+    try:
+        title = json_data['title']
+    except KeyError:
+        title = '[No title provided]'
     if is_in_db(number, cur):
-        cur.execute("UPDATE Stories SET Score = ?, Url = ?, Title = ? WHERE id = ?;", (json_data['score'], json_data['url'], json_data['title'], number ))
+        cur.execute("UPDATE Stories SET Score = ?, Url = ?, Title = ? WHERE id = ?;", (json_data['score'], url, title, number ))
     else:
-        try:
-            url = json_data['url']
-        except KeyError:
-            url = ''
-        try:
-            title = json_data['title']
-        except KeyError:
-            title = ''
         cur.execute("""insert into Stories (Id, Score, Url, Title) values
   (?, ?, ?,? );""", (number, json_data['score'], url, title))
     pass
