@@ -3,5 +3,5 @@ services:
   cron:
     build: .
     volumes:
-      - ./credentials.py:/code/credentials.py
+      - ./code/credentials.py:/code/credentials.py
       - ./data:/data
