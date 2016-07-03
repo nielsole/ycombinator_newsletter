@@ -4,23 +4,20 @@ import json
 import os
 import requests
 import cgi
-from credentials import API_KEY, USER, HOST
+from credentials import API_KEY
 import database
 
 __author__ = 'flshrmb'
 
 
 def send_simple_message(some_list):
-    with open('addresses.txt') as f:
-        addresses = f.read().splitlines()
     return requests.post(
-        "https://api.mailgun.net/v3/" + HOST + "/messages",
-        auth=("api", API_KEY),
-        data={"from": u'"Hacker News - Daily Report "<{0}@{1}>'.format(USER, HOST),
-              "to": u'<{0}@{1}>'.format(USER, HOST),
-              "bcc": addresses,
+        "https://newsletter.niels-ole.com/send",
+        headers={"Authorization": "Token {}".format(API_KEY)},
+        json={
+              "list": 1,
               "subject": "Hacker News Update",
-              "html": u'<html>{0}<br>To be removed from this mailing list write an email with the subject \'unsubscribe\' to hackernewsletter-request@freelists.org</html>'.format(some_list)})
+              "html": u'{}'.format(some_list)})
 
 def main():
     message = "Top messages:<br>"
