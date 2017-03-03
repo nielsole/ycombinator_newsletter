@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import json
-import os
+import html
+
 import requests
-import cgi
 from credentials import API_KEY
 import database
 
@@ -26,10 +25,10 @@ def main():
     top_ten = database.get_top_ten(cur)
     for result in top_ten:
         # Id INTEGER PRIMARY KEY, Score INTEGER, Url VARCHAR, Title VARCHAR, Sent
-        number = result[0]
-        score = result[1]
-        url = result[2]
-        title = cgi.escape(result[3])
+        number = html.escape(result[0])
+        score = html.escape(result[1])
+        url = html.escape(result[2])
+        title = html.escape(result[3])
         if url == '':
             link = title
         else:
