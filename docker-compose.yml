@@ -1,7 +1,7 @@
 version: '2'
 services:
   cron:
-    build: .
+    image: nielsole/ycombinator_newsletter
     volumes:
       - ./code/credentials.py:/code/credentials.py
       - ./data:/data

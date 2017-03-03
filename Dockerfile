@@ -1,13 +1,8 @@
-FROM ubuntu:14.04
-RUN apt-get update
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
-RUN apt-get install rsyslog -y
-RUN rsyslogd
-RUN touch /var/log/syslog
-#RUN touch /var/log/cron.log
+FROM alpine:3.5
+RUN apk update
+RUN apk add python3 -y
 ADD ./code /code
 RUN pip3 install -r /code/requirements.txt
-#ADD ./hn-cron /etc/cron.d/hn
+ADD ./hn-cron /etc/crontabs/root
 RUN mkdir /data
-CMD cron -L15 && tail -f /var/log/syslog
+CMD tail -f /dev/null
