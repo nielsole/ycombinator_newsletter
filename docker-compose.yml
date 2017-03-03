@@ -3,5 +3,5 @@ services:
   cron:
     image: nielsole/ycombinator_newsletter
     volumes:
-      - ./code/credentials.py:/code/credentials.py
+      - ./data/credentials.py:/code/credentials.py
       - ./data:/data

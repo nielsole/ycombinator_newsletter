@@ -5,4 +5,4 @@ ADD ./code /code
 RUN pip3 install -r /code/requirements.txt
 ADD ./hn-cron /etc/crontabs/root
 RUN mkdir /data
-CMD tail -f /dev/null
+CMD crond -f

@@ -1,3 +1,3 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+PATH=/bin
 */20 * * * * /code/crawl.sh >> /data/crawl.log 2>&1
 0 8 * * * /code/midnight.sh >> /data/midnight.log 2>&1
