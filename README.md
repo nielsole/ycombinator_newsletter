@@ -1,3 +1,4 @@
+[![Build Status](https://drone.niels-ole.com/api/badges/nielsole/ycombinator_newsletter/status.svg)](https://drone.niels-ole.com/nielsole/ycombinator_newsletter)
 # Hacker News Newsletter
 Sometimes missing out on some of the topstories of Hacker News?
 

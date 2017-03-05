@@ -10,7 +10,7 @@ def is_in_db(number, cur):
         return True
     return False
 
-def insert(number, json_data, cur):
+def insert(json_data, cur):
     try:
         url = json_data['url']
     except KeyError:
@@ -19,11 +19,11 @@ def insert(number, json_data, cur):
         title = json_data['title']
     except KeyError:
         title = '[No title provided]'
-    if is_in_db(number, cur):
-        cur.execute("UPDATE Stories SET Score = ?, Url = ?, Title = ? WHERE id = ?;", (json_data['score'], url, title, number ))
+    if is_in_db(json_data["id"], cur):
+        cur.execute("UPDATE Stories SET Score = ?, Url = ?, Title = ? WHERE id = ?;", (json_data['score'], url, title, json_data["id"] ))
     else:
         cur.execute("""insert into Stories (Id, Score, Url, Title) values
-  (?, ?, ?,? );""", (number, json_data['score'], url, title))
+  (?, ?, ?,? );""", (json_data["id"], json_data['score'], url, title))
     pass
 
 def create_table(cur):

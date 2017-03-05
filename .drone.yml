@@ -1,0 +1,14 @@
+pipeline:
+  test:
+    image: django:1.9.7-python3
+    commands:
+      - cd code
+      - pip install -r requirements.txt
+      - ./test_database.py
+  backend:
+    image: plugins/docker
+    repo: nielsole/ycombinator_newsletter
+    username: ${DRONE_USERNAME}
+    password: ${DRONE_PASSWORD}
+    tags:
+      - latest
