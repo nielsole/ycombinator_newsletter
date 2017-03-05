@@ -4,7 +4,7 @@ pipeline:
     commands:
       - cd code
       - pip install -r requirements.txt
-      - ./test_database.py
+      - python ./test_database.py
   backend:
     image: plugins/docker
     repo: nielsole/ycombinator_newsletter
