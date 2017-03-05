@@ -1,4 +1,3 @@
-import json
 
 __author__ = 'flshrmb'
 
