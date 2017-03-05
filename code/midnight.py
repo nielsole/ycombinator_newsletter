@@ -25,8 +25,8 @@ def main():
     top_ten = database.get_top_ten(cur)
     for result in top_ten:
         # Id INTEGER PRIMARY KEY, Score INTEGER, Url VARCHAR, Title VARCHAR, Sent
-        number = html.escape(result[0])
-        score = html.escape(result[1])
+        number = html.escape(str(result[0]))
+        score = html.escape(str(result[1]))
         url = html.escape(result[2])
         title = html.escape(result[3])
         if url == '':
