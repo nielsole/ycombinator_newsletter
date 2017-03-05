@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: django:1.9.7-python3
+    image: python:3.6
     commands:
       - cd code
       - pip install -r requirements.txt
