@@ -8,6 +8,7 @@ __author__ = 'flshrmb'
 def handle(some_story, conn):
     cursor = conn.cursor()
     database.insert(some_story, cursor)
+    cursor.close()
     conn.commit()
 
 
@@ -17,8 +18,9 @@ def main():
         return # Maybe add exception?
     top_json = top_list.json()
     conn = database.get_con()
-    with conn.cursor() as cur:
-        database.create_table(cur)
+    cur = conn.cursor()
+    database.create_table(cur)
+    cur.close()
     for i, id in enumerate(top_json):
         story_request = requests.get('https://hacker-news.firebaseio.com/v0/item/{0}.json'.format(id))
         if story_request.status_code != 200:
